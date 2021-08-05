@@ -13,7 +13,7 @@ const client = new Twitter({
 
 const phrases = {};
 
-const readFileAndSave = async function () {
+const readFileAndSave = async () => {
   const { data } = await axios.get(
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTu7pnYXV8myzgJV3ZQjh33GNRQUmDynXovirq3ETkrgymH75URogEuQhS-bDs-ORqutKGZBTs_5iyh/pub?gid=1740660894&single=true&output=csv"
   );
@@ -23,7 +23,7 @@ const readFileAndSave = async function () {
     .on("end", () => tweet())
     .on("data", (row) => {
       if (!phrases[row.ID]) {
-        phrases[row.ID] = { ...row, tweeted: row.tweeted === 'TRUE' };
+        phrases[row.ID] = { ...row, tweeted: row.tweeted === "TRUE" };
       }
     });
 
@@ -32,8 +32,8 @@ const readFileAndSave = async function () {
 };
 
 // Tweet a phrase
-const tweet = async function () {
-    console.log('phrases: ', phrases);
+const tweet = async () => {
+  console.log("phrases: ", phrases);
   let phrase = Object.values(phrases).find((phrase) => !phrase.tweeted);
 
   if (!phrase) {
@@ -46,15 +46,17 @@ const tweet = async function () {
     }
   }
 
-  const tweet = `"${phrase.Phrase}" - ${phrase.Author || 'Anónimo'}`;
-  console.log("tweet: ", tweet);
+  const tuit = `"${phrase.Phrase}" - ${phrase.Author || "Anónimo"}`;
+  console.log("tweet: ", tuit);
   // tweet
   try {
-    const response = await client.post("statuses/update", { status: tweet });
+    const response = await client.post("statuses/update", { status: tuit });
   } catch (error) {
+    console.log('error: ', error);
     if (error[0].code === 187) {
+      console.log('repeat tweet:');
       phrases[phrase.ID].tweeted = true;
-      tweet();
+      await tweet();
     }
     return;
   }
@@ -79,6 +81,6 @@ app.get("/phrases", (req, res) => {
 
 app.listen(port, () => {
   console.log("Running bot");
-  execute()
+  execute();
   setInterval(execute, 600000);
 });
