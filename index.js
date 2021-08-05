@@ -23,7 +23,7 @@ const readFileAndSave = async function () {
     .on("end", () => tweet())
     .on("data", (row) => {
       if (!phrases[row.ID]) {
-        phrases[row.ID] = { ...row, tweeted: false };
+        phrases[row.ID] = { ...row, tweeted: row.tweeted === 'TRUE' };
       }
     });
 
@@ -33,6 +33,7 @@ const readFileAndSave = async function () {
 
 // Tweet a phrase
 const tweet = async function () {
+    console.log('phrases: ', phrases);
   let phrase = Object.values(phrases).find((phrase) => !phrase.tweeted);
 
   if (!phrase) {
@@ -59,7 +60,6 @@ const tweet = async function () {
 };
 
 const execute = async function () {
-  console.log("phrases: ", phrases);
   readFileAndSave();
 };
 
