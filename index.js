@@ -70,6 +70,10 @@ app.get("/", (req, res) => {
   res.send("Hello Roño!");
 });
 
+app.get("/phrases", (req, res) => {
+  res.send(phrases);
+});
+
 app.listen(port, () => {
   console.log("Running bot");
   execute()
