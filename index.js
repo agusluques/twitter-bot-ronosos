@@ -1,6 +1,7 @@
 const Twitter = require("twitter");
 const axios = require("axios");
 const dotenv = require("dotenv").config();
+const express = require("express");
 const { parse } = require("@fast-csv/parse");
 
 const client = new Twitter({
@@ -45,7 +46,7 @@ const tweet = async function () {
   }
 
   const tweet = `"${phrase.Phrase}" - ${phrase.Author}`;
-  console.log('tweet: ', tweet);
+  console.log("tweet: ", tweet);
   // tweet
   try {
     const response = await client.post("statuses/update", { status: tweet });
@@ -58,9 +59,18 @@ const tweet = async function () {
 };
 
 const execute = async function () {
+  console.log("phrases: ", phrases);
   readFileAndSave();
-  console.log('phrases: ', phrases);
 };
 
-setInterval(execute, 3600000);
-console.log('Running bot');
+const app = express();
+const port = process.env.PORT || 5000;
+
+app.get("/", (req, res) => {
+  res.send("Hello Roño!");
+});
+
+app.listen(port, () => {
+  console.log("Running bot");
+  setInterval(execute, 3600000);
+});
