@@ -46,7 +46,7 @@ const tweet = async function () {
     }
   }
 
-  const tweet = `"${phrase.Phrase}" - ${phrase.Author}`;
+  const tweet = `"${phrase.Phrase}" - ${phrase.Author || 'Anónimo'}`;
   console.log("tweet: ", tweet);
   // tweet
   try {
