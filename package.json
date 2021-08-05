@@ -1,0 +1,18 @@
+{
+  "name": "twiter-bot-bofo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fast-csv/parse": "^4.3.6",
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "twitter": "^1.7.1"
+  }
+}
