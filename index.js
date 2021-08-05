@@ -3,7 +3,6 @@ const axios = require("axios");
 const dotenv = require("dotenv").config();
 const { parse } = require("@fast-csv/parse");
 
-console.log("process.env.CONSUMER_KEY: ", process.env.CONSUMER_KEY);
 const client = new Twitter({
   consumer_key: process.env.CONSUMER_KEY,
   consumer_secret: process.env.CONSUMER_SECRET,
