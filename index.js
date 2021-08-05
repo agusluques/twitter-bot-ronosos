@@ -72,5 +72,6 @@ app.get("/", (req, res) => {
 
 app.listen(port, () => {
   console.log("Running bot");
-  setInterval(execute, 3600000);
+  execute()
+  setInterval(execute, 1800000);
 });
