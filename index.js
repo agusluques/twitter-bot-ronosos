@@ -45,7 +45,7 @@ const tweet = async function () {
     }
   }
 
-  const tweet = `${phrase.Phrase} - ${phrase.Author}`;
+  const tweet = `"${phrase.Phrase}" - ${phrase.Author}`;
   console.log('tweet: ', tweet);
   // tweet
   try {
