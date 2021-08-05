@@ -52,7 +52,10 @@ const tweet = async function () {
   try {
     const response = await client.post("statuses/update", { status: tweet });
   } catch (error) {
-    console.error(error);
+    if (error[0].code === 187) {
+      phrases[phrase.ID].tweeted = true;
+      tweet();
+    }
     return;
   }
 
